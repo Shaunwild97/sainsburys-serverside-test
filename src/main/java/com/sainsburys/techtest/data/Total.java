@@ -3,6 +3,7 @@ package com.sainsburys.techtest.data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.joda.money.Money;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,12 +12,9 @@ import java.math.RoundingMode;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class Total {
-    private BigDecimal gross;
+    private Money gross;
 
-    public BigDecimal getVAT() {
-        return gross
-                .divide(new BigDecimal("120"), 3, RoundingMode.HALF_UP)
-                .multiply(new BigDecimal("20"))
-                .stripTrailingZeros();
+    public Money getVAT() {
+        return gross.multipliedBy(1/6D, RoundingMode.HALF_UP);
     }
 }

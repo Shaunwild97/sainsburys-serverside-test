@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.joda.money.Money;
 
 import javax.json.bind.annotation.JsonbProperty;
-import java.math.BigDecimal;
-import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +19,7 @@ public class Product {
     @JsonbProperty(value = "kcal_per_100g", nillable = false)
     private Integer kcalPer100g;
 
-    private BigDecimal unitPrice;
+    private Money unitPrice;
 
     private String description;
 }

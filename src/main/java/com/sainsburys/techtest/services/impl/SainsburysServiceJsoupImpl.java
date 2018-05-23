@@ -5,6 +5,7 @@ import com.sainsburys.techtest.data.ProductsResponse;
 import com.sainsburys.techtest.exceptions.ProductParseException;
 import com.sainsburys.techtest.services.SainsburysService;
 import com.sainsburys.techtest.util.JSoupUtils;
+import org.joda.money.Money;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -109,7 +110,7 @@ public class SainsburysServiceJsoupImpl implements SainsburysService {
         return product;
     }
 
-    private BigDecimal getProductUnitPrice(Element element) {
+    private Money getProductUnitPrice(Element element) {
         return parseUnitPrice(element.select(PRICE_PER_UNIT_CLASS).get(0).text());
     }
 
@@ -122,11 +123,11 @@ public class SainsburysServiceJsoupImpl implements SainsburysService {
         return Integer.parseInt(kcalString);
     }
 
-    private BigDecimal parseUnitPrice(String unitPrice) {
+    private Money parseUnitPrice(String unitPrice) {
         String result = unitPrice
                 .replace(POUND_STRING, EMPTY_STRING)
                 .replace(UNIT_STRING, EMPTY_STRING);
 
-        return new BigDecimal(result);
+        return Money.parse("GBP " + result);
     }
 }
